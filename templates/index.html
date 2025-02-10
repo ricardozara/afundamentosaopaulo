@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Porta-Aviões São Paulo - História e Impacto Ambiental</title>
+    
+    <!-- Mapbox -->
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.css' rel='stylesheet'>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.js'></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Buy Me a Coffee Widget -->
+    <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="afundamentopasp" data-description="Support me on Buy me a coffee!" data-message="" data-color="#5F7FFF" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #2a4365;
+            --accent-color: #e53e3e;
+            --background-color: #f7fafc;
+            --text-color: #2d3748;
+            --success-color: #68D391;
+            --warning-color: #F6E05E;
+            --danger-color: #FC8181;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('path-to-ship-image.jpg') center/cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Story Section */
+        .story-section {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .story-section h2 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--accent-color);
+        }
+
+        .story-content {
+            margin-bottom: 2rem;
+        }
+
+        .story-section section {
+            margin-bottom: 2rem;
+        }
+
+        .story-section h3 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .key-findings {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .key-findings ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .key-findings li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .key-findings li::before {
+            content: '→';
+            color: var(--accent-color);
+            position: absolute;
+            left: 0;
+        }
+
+        .important-links {
+            margin-top: 2rem;
+        }
+
+        .important-links a {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            margin: 0.5rem;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .important-links a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        /* Instruction Box */
+        .instruction-box {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 2rem auto;
+            max-width: 800px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            animation: pulse 2s infinite;
+        }
+
+        .instruction-box i {
+            font-size: 1.5rem;
+            margin-right: 0.5rem;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        /* Map Styles */
+        .map-container {
+            width: 100%;
+            height: 600px;
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin: 2rem 0;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Timeline Styles */
+        .timeline-container {
+            max-width: 1000px;
+            margin: 3rem auto;
+            padding: 0 1rem;
+        }
+
+        .timeline-event {
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            padding: 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .timeline-header {
+            padding: 1.5rem;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .timeline-date {
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            background: rgba(255,255,255,0.2);
+            border-radius: 6px;
+        }
+
+        .timeline-title {
+            font-size: 1.4rem;
+            margin: 0;
+        }
+
+        .timeline-content {
+            padding: 1.5rem;
+            display: none;
+        }
+
+        .timeline-content.active {
+            display: block;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Detail Sections */
+        .detail-section {
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .detail-section h4 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .detail-item {
+            background: white;
+            padding: 1rem;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        /* Person Cards */
+        .person-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .person-name {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .person-role {
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .person-quote {
+            font-style: italic;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 6px;
+            position: relative;
+        }
+
+        .person-quote::before {
+            content: '"';
+            font-size: 3rem;
+            color: var(--primary-color);
+            opacity: 0.2;
+            position: absolute;
+            top: -10px;
+            left: 10px;
+        }
+
+        /* Document Links */
+        .document-links {
+            margin: 1rem 0;
+        }
+
+        .document-link {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background: white;
+            border-radius: 6px;
+            margin: 0.5rem 0;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        .document-link:hover {
+            transform: translateX(10px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .document-link i {
+            color: var(--primary-color);
+            margin-right: 1rem;
+            font-size: 1.2rem;
+        }
+
+        /* Media Coverage */
+        .media-coverage {
+            margin-top: 1.5rem;
+        }
+
+        .media-item {
+            padding: 1rem;
+            border-left: 3px solid var(--accent-color);
+            margin: 0.5rem 0;
+            background: #f8f9fa;
+        }
+
+        .media-item a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .media-item a:hover {
+            text-decoration: underline;
+        }
+
+        /* Environmental Impact */
+        .environmental-impact {
+            background: #fff3cd;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--warning-color);
+        }
+
+        .impact-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .impact-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .impact-list li::before {
+            content: '⚠';
+            position: absolute;
+            left: 0;
+            color: var(--warning-color);
+        }
+        
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <h1>Porta-Aviões São Paulo</h1>
+            <p>Uma História de Controvérsias e Impacto Ambiental</p>
+            <div class="social-links">
+                <a href="https://instagram.com/afundamentopasp" target="_blank" title="Siga-nos no Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://twitter.com/afundamentopasp" target="_blank" title="Siga-nos no Twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- História Completa -->
+        <section class="story-section">
+            <h2>A História do Porta-Aviões São Paulo</h2>
+            <div class="story-content">
+                <p>{{ full_story.introduction }}</p>
+                
+                {% for section in full_story.sections %}
+                <section>
+                    <h3>{{ section.title }}</h3>
+                    <p>{{ section.content }}</p>
+                    <small class="source">Fonte: {{ section.source }}</small>
+                </section>
+                {% endfor %}
+
+                <div class="key-findings">
+                    <h3>Principais Dados</h3>
+                    <ul>
+                        {% for finding in full_story.key_findings %}
+                        <li>{{ finding }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="important-links">
+                    <h3>Documentos Importantes</h3>
+                    {% for link in full_story.important_links %}
+                    <a href="{{ link.url }}" target="_blank" class="document-link">
+                        <i class="fas fa-file-alt"></i>
+                        {{ link.title }}
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+        <!-- Instrução para Timeline -->
+        <div class="instruction-box">
+            <i class="fas fa-info-circle"></i>
+            <p>Clique nos eventos da linha do tempo abaixo para explorar detalhes e visualizar localizações no mapa</p>
+        </div>
+
+        <!-- Mapa -->
+        <div class="map-container">
+            <div id="map"></div>
+        </div>
+
+        <!-- Timeline -->
+        <div class="timeline-container">
+            {% for event in timeline_events %}
+            <div class="timeline-event" data-event-id="{{ event.id }}">
+                <div class="timeline-header" onclick="toggleEvent(this)">
+                    <span class="timeline-date">{{ event.date }}</span>
+                    <h3 class="timeline-title">{{ event.title }}</h3>
+                </div>
+                <div class="timeline-content">
+                    <p class="event-description">{{ event.description }}</p>
+
+                    {% if event.details.specs %}
+                    <div class="detail-section">
+                        <h4>Especificações Técnicas</h4>
+                        <div class="detail-grid">
+                            {% for spec in event.details.specs %}
+                            <div class="detail-item">{{ spec }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {% if event.details.people %}
+                    <div class="detail-section">
+                        <h4>Autoridades Envolvidas</h4>
+                        {% for person in event.details.people %}
+                        <div class="person-card">
+                            <div class="person-name">{{ person.name }}</div>
+                            <div class="person-role">{{ person.role }}</div>
+                            <p>{{ person.action }}</p>
+                            {% if person.quote %}
+                            <div class="person-quote">{{ person.quote }}</div>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    {% if event.details.documents %}
+                    <div class="detail-section">
+                        <h4>Documentos Oficiais</h4>
+                        <div class="document-links">
+                            {% for doc in event.details.documents %}
+                            <a href="{{ doc.url }}" target="_blank" class="document-link">
+                                <i class="fas fa-file-alt"></i>
+                                <div>
+                                    <strong>{{ doc.title }}</strong>
+                                    <p>{{ doc.description }}</p>
+                                    <small>Data: {{ doc.date }}</small>
+                                </div>
+                            </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {% if event.details.environmental_impact %}
+                    <div class="environmental-impact">
+                        <h4>Impacto Ambiental</h4>
+                        <ul class="impact-list">
+                            {% for impact in event.details.environmental_impact.immediate_risks %}
+                            <li>{{ impact }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+
+                    {% if event.details.media_coverage %}
+                    <div class="media-coverage">
+                        <h4>Cobertura da Mídia</h4>
+                        {% for media in event.details.media_coverage %}
+                        <div class="media-item">
+                            <a href="{{ media.url }}" target="_blank">{{ media.title }}</a>
+                            <p>{{ media.source }} - {{ media.date }}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 Projeto Porta-Aviões São Paulo. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // Inicialização do mapa
+        mapboxgl.accessToken = '{{ mapbox_key }}';
+        let map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/satellite-v9',
+            center: [-42.0191, -26.9731], // Local do afundamento
+            zoom: 5
+        });
+
+        // Adicionar controles do mapa
+        map.addControl(new mapboxgl.NavigationControl());
+        map.addControl(new mapboxgl.FullscreenControl());
+
+        let currentMarker = null;
+        const events = {{ timeline_events|tojson|safe }};
+
+        function toggleEvent(header) {
+            const event = header.parentElement;
+            const content = event.querySelector('.timeline-content');
+            const eventId = event.dataset.eventId;
+            const eventData = events.find(e => e.id === parseInt(eventId));
+
+            // Fechar outros eventos
+            document.querySelectorAll('.timeline-content.active').forEach(el => {
+                if (el !== content) el.classList.remove('active');
+            });
+
+            // Toggle atual evento
+            content.classList.toggle('active');
+
+            // Atualizar mapa se o evento estiver abrindo
+            if (content.classList.contains('active')) {
+                updateMap(eventData.location);
+                // Scroll suave até o mapa
+                document.querySelector('.map-container').scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+
+        function updateMap(location) {
+            if (currentMarker) {
+                currentMarker.remove();
+            }
+
+            currentMarker = new mapboxgl.Marker()
+                .setLngLat([location.lng, location.lat])
+                .setPopup(new mapboxgl.Popup().setHTML(location.description))
+                .addTo(map);
+
+            map.flyTo({
+                center: [location.lng, location.lat],
+                zoom: 8,
+                duration: 2000
+            });
+        }
+
+        // Marcador inicial (local do afundamento)
+        window.addEventListener('load', () => {
+            currentMarker = new mapboxgl.Marker()
+                .setLngLat([-42.0191, -26.9731])
+                .setPopup(new mapboxgl.Popup().setHTML('Local do afundamento'))
+                .addTo(map);
+        });
+
+        // Resize handler
+        window.addEventListener('resize', () => {
+            map.resize();
+        });
+    </script>
+</body>
+</html>        
